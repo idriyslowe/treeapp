@@ -11,21 +11,17 @@ app.get("/", function(request, response, next) {
   response.sendFile(path.join( __dirname + "/views/index.html"));
 });
 
-// testing cookie sending
-app.get("/user/:user", function(request, response) {
-  response.cookie('name', request.params.user).send('<p>Cookie Set: <a href="/user">View Here</a>');
+// change get to new. can't use id
+app.post("/tree/new", function(request, response) {
+  response.cookie('tree', request.params.id, {expire: new Date() + 9999}).send(request.cookies.tree);
 });
 
 // resetting cookie
-app.get('/user', function(request, response) {
-  response.clearCookie('name').send(request.cookies.name);
+app.get('/reset', function(request, response) {
+  response.clearCookie('tree').send(request.cookies.tree);
 });
 
-app.patch("/update", function(request, response) {
-  response.end("What do you want to change about this tree?"); 
-});
-
-app.delete("/delete", function(request, response) {
+app.delete("/tree/delete/:id", function(request, response) {
   response.end("You wanna destroy a tree?!");  
 });
 

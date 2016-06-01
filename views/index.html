@@ -6,6 +6,7 @@
         <link rel='stylesheet' href='/css/main.css' type='text/css'>
         <script src='/javascript/angular.min.js'></script>
     </head>
+    <!-- fix the ng-hide and show all drama -->
     <body ng-controller="treeCtrl">
         <h1>ALL DOCUMENTED TREES</h1>
         <div ng-init="treeEdit = false">
@@ -17,9 +18,9 @@
                 <input type="text" ng-model="eAge" placeholder="Edit Age" ng-hide="!treeEdit">
                 <p>Address: {{tree.address}}</p>
                 <input type="text" ng-model="eAddress" placeholder="Edit Address" ng-hide="!treeEdit">
-            <!-- add object into edit and id= so we can edit the right one. -->
-            <!-- this is calling whether we're submitting or not -->
-                <button type="submit" id="edit-button{{tree.id}}" ng-click="Edit(tree, eName, eAge, eAddress)">Edit</button>              
+                <br>
+                <button type="submit" id="edit-button{{tree.id}}" ng-click="edit(tree, eName, eAge, eAddress)">Edit</button>
+                <button type="submit" id="delete-button{{tree.id}}" ng-click="delete(tree)">Delete</button>                           
                 <hr>
             </div>
         </div>
