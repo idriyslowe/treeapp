@@ -1,17 +1,21 @@
-var app = angular.module('treeApp', []);
+var app = angular.module('treeApp', ['ngRoute']);
+
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  $routeProvider.when('/', {
+    templateUrl: 'index.html',
+    controller: 'treeCtrl'
+  }).otherwise({
+    redirectTo: '/'
+  });
+  $locationProvider.html5Mode(true);
+}]);
 
 app.controller('treeCtrl', function($scope, $http) {
+  var app = this;
+  var url = 'http://localhost:4050';
+  $scope.treesFromMongo = [];
 
-// this tree should be in a fake database to edit
-  $scope.trees = [{
-    // dynamically change id
-    'id': '1',
-    'name': 'American Sycamore',
-    // convert to datetime... subtract in years from today
-    'age': 1,
-    'address': '3227 W Le Moyne',
-  }];
-
+// EDIT FUNCTIONS WILL NEED _ID INSTEAD OF ID
   $scope.edit = function(tree, eName, eAge, eAddress) {
     if ($scope.treeEdit === false) {
       $scope.treeEdit = true;
@@ -26,16 +30,17 @@ app.controller('treeCtrl', function($scope, $http) {
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
     var thisTree = $scope.trees.find(x => x.id === tree.id)
 
-    $http.get('/tree/edit/' + tree.id).then(function(response) {
-      console.log(response);
-      // send finput object to create this tree
-    }, function(error) {
-      console.log(error);
-    });    
-
     thisTree.name = eName || thisTree.name;
     thisTree.age = eAge || thisTree.age;
     thisTree.address = eAddress || thisTree.address; 
+  };
+
+  $scope.show = function() {
+    $http.get(url).success(function(trees) {
+      $scope.treesFromMongo.push(trees);
+    }).error(function(error) {
+      console.log('error');
+    });
   };
 
   $scope.delete = function(tree) {
@@ -45,33 +50,14 @@ app.controller('treeCtrl', function($scope, $http) {
     if (confirmed === true) {
       console.log("deleting " + tree.name);
 
-      $http.get('/tree/delete/' + tree.id).then(function(response) {
-        console.log(response);
-        // send thisTree
-      }, function(error) {
-        console.log(error);
-      });
-
       // delete this tree from array and using cookies
     }   
   };
 
   $scope.newTree = function(nName, nAge, nAddress) {
-    $scope.finput = {
-      'id': '1',
-      'name': nName,
-      'age': nAge,
-      'address': nAddress
-    };
 
-    $http.post('/tree/new', $scope.finput).then(function(response) {
-      console.log('send this ' + JSON.stringify($scope.finput));
-      // send finput object to create this tree
-    }, function(error) {
-      console.log(error);
-    });
+    $http.post(url + '/new', {name: nName, age: nAge, address: nAddress});
 
-    $scope.trees.push($scope.finput);
     $scope.nName = null;
     $scope.nAge = null;
     $scope.nAddress = null;

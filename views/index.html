@@ -10,8 +10,8 @@
     <body ng-controller="treeCtrl">
         <h1>ALL DOCUMENTED TREES</h1>
         <div ng-init="treeEdit = false">
-            <div ng-repeat="tree in trees">
-                <p>ID: {{tree.id}}</p>
+            <div ng-repeat="tree in treesFromMongo">
+                <p>ID: {{tree._id}}</p>
                 <p>Name: {{tree.name}}</p>
                 <input type="text" ng-model="eName" placeholder="Edit Name" ng-hide="!treeEdit">
                 <p>Age: {{tree.age}}</p>
@@ -29,8 +29,11 @@
             <input type="text" ng-model="nAge" placeholder="Age">
             <input type="text" ng-model="nAddress" placeholder="Address">
             <button ng-click="newTree(nName, nAge, nAddress)">Submit New Tree</button>
+            <button type="submit" id="edit-button{{tree.id}}" ng-click="show()">Show</button>  
         </div>
         
+        
+        <script src="/angular_route_script/angular-route.js"></script>
         <script src="/javascript/tree-ctrl.js"></script>
     </body>
 </html>
