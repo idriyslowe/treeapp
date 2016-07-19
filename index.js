@@ -20,10 +20,8 @@ var treeModel = mongoose.model('tree', {
 });
 
 app.get("/", function(request, response) {
-  var poop = treeModel.find(function(error, trees) {
+  treeModel.find(function(error, trees) {
     if (error) return console.error(error);
-    // response.send(trees);
-    // return trees;
   });
   response.sendFile(path.join( __dirname + "/views/index.html"));
 });

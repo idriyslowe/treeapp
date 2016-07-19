@@ -5,6 +5,7 @@
         <title>Tree App</title>
         <link rel='stylesheet' href='/css/main.css' type='text/css'>
         <script src='/javascript/angular.min.js'></script>
+        <!-- <script onload="show()"></script> -->
     </head>
     <!-- fix the ng-hide and show all drama -->
     <body ng-controller="treeCtrl">
@@ -20,7 +21,7 @@
                 <input type="text" ng-model="eAddress" placeholder="Edit Address" ng-hide="!treeEdit">
                 <br>
                 <button type="submit" id="edit-button{{tree.id}}" ng-click="edit(tree, eName, eAge, eAddress)">Edit</button>
-                <button type="submit" id="delete-button{{tree.id}}" ng-click="delete(tree)">Delete</button>                           
+                <button type="submit" id="delete-button{{tree.id}}" ng-click="delete(tree)">Delete</button>                   
                 <hr>
             </div>
         </div>

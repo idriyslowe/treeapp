@@ -7,10 +7,13 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   }).otherwise({
     redirectTo: '/'
   });
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 }]);
 
-app.controller('treeCtrl', function($scope, $http) {
+app.controller('treeCtrl', function($scope, $http, $route) {
   var app = this;
   var url = 'http://localhost:4050';
   $scope.treesFromMongo = [];
