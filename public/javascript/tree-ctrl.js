@@ -23,6 +23,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   var app = this;
   var homeUrl = 'http://localhost:4050';
   var indexUrl = 'http://localhost:4050/index';
+  // can angular handle and array of objects?
   $scope.treesFromMongo = [];
 
 // EDIT FUNCTIONS WILL NEED _ID INSTEAD OF ID
@@ -45,10 +46,13 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     thisTree.address = eAddress || thisTree.address; 
   };
 
+// only works after reload!?
   $scope.show = function() {
     $http.get(indexUrl).success(function(trees) {
+      for ( i = 0; i < trees.length; i++ ) {
+        $scope.treesFromMongo.push(trees[i]); 
+      }
       console.log(trees[0]);
-      $scope.treesFromMongo.push(trees[0]);
     }).error(function(error) {
       console.log('error');
     });
