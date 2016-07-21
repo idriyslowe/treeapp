@@ -23,27 +23,29 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   var app = this;
   var homeUrl = 'http://localhost:4050';
   var indexUrl = 'http://localhost:4050/index';
-  // can angular handle and array of objects?
   $scope.treesFromMongo = [];
 
-// EDIT FUNCTIONS WILL NEED _ID INSTEAD OF ID
+// if triggered, will change this tree's form elements to show
   $scope.edit = function(tree, eName, eAge, eAddress) {
-    if ($scope.treeEdit === false) {
-      $scope.treeEdit = true;
-      document.getElementById('edit-button' + tree.id).innerHTML = "Submit";      
+    document.getElementById('edit-name' + tree._id).style.display = 'block';
+    document.getElementById('edit-age' + tree._id).style.display = 'block';
+    document.getElementById('edit-address' + tree._id).style.display = 'block';
+
+    if (document.getElementById('edit-name' + tree._id).style.display = 'block') {
+      document.getElementById('edit-button' + tree._id).innerHTML = "Submit";   
     } else {
       $scope.submitEdit(tree, eName, eAge, eAddress);
-      $scope.treeEdit = false;
-      document.getElementById('edit-button' + tree.id).innerHTML = "Edit";  
+      document.getElementById('edit-button' + tree._id).innerHTML = "Edit";
     }
   };
 
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
-    var thisTree = $scope.trees.find(x => x.id === tree.id)
+    console.log('i need to work on how to edit the db');
+    // var thisTree = $scope.trees.find(x => x._id === tree._id)
 
-    thisTree.name = eName || thisTree.name;
-    thisTree.age = eAge || thisTree.age;
-    thisTree.address = eAddress || thisTree.address; 
+    // thisTree.name = eName || thisTree.name;
+    // thisTree.age = eAge || thisTree.age;
+    // thisTree.address = eAddress || thisTree.address; 
   };
 
 // only works after reload!?
@@ -52,7 +54,6 @@ app.controller('treeCtrl', function($scope, $http, $route) {
       for ( i = 0; i < trees.length; i++ ) {
         $scope.treesFromMongo.push(trees[i]); 
       }
-      console.log(trees[0]);
     }).error(function(error) {
       console.log('error');
     });

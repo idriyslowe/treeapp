@@ -10,21 +10,19 @@
     <!-- fix the ng-hide and show all drama -->
     <body ng-controller="treeCtrl">
         <h1>ALL DOCUMENTED TREES</h1>
-        <div ng-init="treeEdit = false">
             <div ng-repeat="tree in treesFromMongo">
                 <p>ID: {{tree._id}}</p>
                 <p>Name: {{tree.name}}</p>
-                <input type="text" ng-model="eName" placeholder="Edit Name" ng-hide="!treeEdit">
+                <input id="edit-name{{tree._id}}" type="text" ng-model="eName" placeholder="Edit Name" style="display: none;">
                 <p>Age: {{tree.age}}</p>
-                <input type="text" ng-model="eAge" placeholder="Edit Age" ng-hide="!treeEdit">
+                <input id="edit-age{{tree._id}}" type="text" ng-model="eAge" placeholder="Edit Age" style="display: none;">
                 <p>Address: {{tree.address}}</p>
-                <input type="text" ng-model="eAddress" placeholder="Edit Address" ng-hide="!treeEdit">
+                <input  id="edit-address{{tree._id}}" type="text" ng-model="eAddress" placeholder="Edit Address" style="display: none;">
                 <br>
-                <button type="submit" id="edit-button{{tree.id}}" ng-click="edit(tree, eName, eAge, eAddress)">Edit</button>
-                <button type="submit" id="delete-button{{tree.id}}" ng-click="delete(tree)">Delete</button>                   
+                <button type="submit" id="edit-button{{tree._id}}" ng-click="edit(tree, eName, eAge, eAddress)">Edit</button>
+                <button type="submit" id="delete-button{{tree._id}}" ng-click="delete(tree)">Delete</button>               
                 <hr>
             </div>
-        </div>
         <div>
             <input type="text" ng-model="nName" placeholder="Name">
             <input type="text" ng-model="nAge" placeholder="Age">
