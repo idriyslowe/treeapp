@@ -26,21 +26,24 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   $scope.treesFromMongo = [];
 
 // if triggered, will change this tree's form elements to show
-  $scope.edit = function(tree, eName, eAge, eAddress) {
+  $scope.edit = function(tree) {
     document.getElementById('edit-name' + tree._id).style.display = 'block';
     document.getElementById('edit-age' + tree._id).style.display = 'block';
     document.getElementById('edit-address' + tree._id).style.display = 'block';
-
-    if (document.getElementById('edit-name' + tree._id).style.display = 'block') {
-      document.getElementById('edit-button' + tree._id).innerHTML = "Submit";   
-    } else {
-      $scope.submitEdit(tree, eName, eAge, eAddress);
-      document.getElementById('edit-button' + tree._id).innerHTML = "Edit";
-    }
+    document.getElementById('begin-edit' + tree._id).style.display = 'none';
+    document.getElementById('submit-edit' + tree._id).style.display = 'block';
+    document.getElementById('submit-edit' + tree._id).style.display = 'inline';
+    // }
   };
 
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
     console.log('i need to work on how to edit the db');
+    document.getElementById('begin-edit' + tree._id).style.display = 'block';
+    document.getElementById('begin-edit' + tree._id).style.display = 'inline';
+    document.getElementById('submit-edit' + tree._id).style.display = 'none';
+    document.getElementById('edit-name' + tree._id).style.display = 'none';
+    document.getElementById('edit-age' + tree._id).style.display = 'none';
+    document.getElementById('edit-address' + tree._id).style.display = 'none';
     // var thisTree = $scope.trees.find(x => x._id === tree._id)
 
     // thisTree.name = eName || thisTree.name;

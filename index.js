@@ -35,11 +35,24 @@ app.get("/", function(request, response) {
 app.post("/new", function(request, response) {
   var tree = request.body;
   var treeDoc = new treeModel({name: tree.name, age: tree.age, address: tree.address});
-  // DOESN'T SAVE BUT NO ERROR. WILL SEND ERRORS FOR VALIDATION PROBLEMS
   treeDoc.save(function(error, savedTree) {
     response.send(tree);
-    console.log(savedTree);
   });
+});
+
+app.put("/edit/:id", function(request, response) {
+  console.log(response.body);
+  // if (error) response.send(error);
+  // var treeInput = request.body;
+  // var treeToEdit = treeModel.findById(treeInput._id, function(error, tree) {
+  //   tree.name = treeInput.name || tree.name;
+  //   tree.age = treeInput.age || tree.name;
+  //   tree.address = treeInput.address || tree.address;
+
+  //   tree.save(function(error) {
+  //     if (error) response.send(error);
+  //   });
+  // });
 });
 
 app.delete("/delete/:id", function(request, response) {
@@ -51,9 +64,6 @@ app.get("*", function(request, response) {
 });
 
 var server = app.listen(4050, function() {
-  // host: accepting connections on any IPv6 address (::) since I didn't specify
   var host = server.address().address;
   var port = server.address().port;
-
-  // console.log('Host: ' + host + '. Port: ' + port);
 })

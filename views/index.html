@@ -19,7 +19,8 @@
                 <p>Address: {{tree.address}}</p>
                 <input  id="edit-address{{tree._id}}" type="text" ng-model="eAddress" placeholder="Edit Address" style="display: none;">
                 <br>
-                <button type="submit" id="edit-button{{tree._id}}" ng-click="edit(tree, eName, eAge, eAddress)">Edit</button>
+                <button type="submit" id="begin-edit{{tree._id}}" ng-click="edit(tree)">Edit</button>
+                <button type="submit" id="submit-edit{{tree._id}}" ng-click="submitEdit(tree, eName, eAge, eAddress)" style="display: none;">Submit</button>
                 <button type="submit" id="delete-button{{tree._id}}" ng-click="delete(tree)">Delete</button>               
                 <hr>
             </div>
