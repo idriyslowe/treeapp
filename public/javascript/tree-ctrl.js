@@ -47,7 +47,8 @@ app.controller('treeCtrl', function($scope, $http, $route) {
 
   $scope.show = function() {
     $http.get(indexUrl).success(function(trees) {
-      $scope.treesFromMongo.push(trees);
+      console.log(trees[0]);
+      $scope.treesFromMongo.push(trees[0]);
     }).error(function(error) {
       console.log('error');
     });
