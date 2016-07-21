@@ -1,10 +1,16 @@
 var app = angular.module('treeApp', ['ngRoute']);
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $routeProvider.when('/', {
-    templateUrl: 'index.html',
-    controller: 'treeCtrl'
-  }).otherwise({
+  $routeProvider
+    .when('/', {
+      templateUrl: 'index.html',
+      controller: 'treeCtrl'
+    })
+    .when('/index', {
+      templateUrl: 'index.html',
+      controller: 'treeCtrl'
+    })
+    .otherwise({
     redirectTo: '/'
   });
   $locationProvider.html5Mode({
@@ -15,7 +21,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
 app.controller('treeCtrl', function($scope, $http, $route) {
   var app = this;
-  var url = 'http://localhost:4050';
+  var homeUrl = 'http://localhost:4050';
+  var indexUrl = 'http://localhost:4050/index';
   $scope.treesFromMongo = [];
 
 // EDIT FUNCTIONS WILL NEED _ID INSTEAD OF ID
@@ -39,7 +46,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   };
 
   $scope.show = function() {
-    $http.get(url).success(function(trees) {
+    $http.get(indexUrl).success(function(trees) {
       $scope.treesFromMongo.push(trees);
     }).error(function(error) {
       console.log('error');
@@ -59,7 +66,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
 
   $scope.newTree = function(nName, nAge, nAddress) {
 
-    $http.post(url + '/new', {name: nName, age: nAge, address: nAddress});
+    $http.post(homeUrl + '/new', {name: nName, age: nAge, address: nAddress});
 
     $scope.nName = null;
     $scope.nAge = null;

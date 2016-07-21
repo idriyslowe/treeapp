@@ -19,10 +19,16 @@ var treeModel = mongoose.model('tree', {
   address: String
 });
 
-app.get("/", function(request, response) {
-  treeModel.find(function(error, trees) {
+app.get("/index", function(request, response) {
+    treeModel.find(function(error, trees) {
     if (error) return console.error(error);
+    response.send(trees);
+    return trees;
   });
+});
+// gotta send the html and data at the same time at load time.
+// to keep it a true spa
+app.get("/", function(request, response) {
   response.sendFile(path.join( __dirname + "/views/index.html"));
 });
 
@@ -41,7 +47,7 @@ app.delete("/delete/:id", function(request, response) {
 });
 
 app.get("*", function(request, response) {
-  response.end("404?!");  
+  response.end("Touched Admin Page");  
 });
 
 var server = app.listen(4050, function() {
