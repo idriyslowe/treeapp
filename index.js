@@ -26,10 +26,7 @@ app.get("/index", function(request, response) {
     return trees;
   });
 });
-// gotta send the html and data at the same time at load time.
-// to keep it a true spa
-// maybe onload="show()"
-// and call show() when any edits happen
+
 app.get("/", function(request, response) {
   response.sendFile(path.join( __dirname + "/views/index.html"));
 });
@@ -42,19 +39,17 @@ app.post("/new", function(request, response) {
   });
 });
 
-app.put("/edit/:id", function(request, response) {
-  console.log(response.body);
-  // if (error) response.send(error);
-  // var treeInput = request.body;
-  // var treeToEdit = treeModel.findById(treeInput._id, function(error, tree) {
-  //   tree.name = treeInput.name || tree.name;
-  //   tree.age = treeInput.age || tree.name;
-  //   tree.address = treeInput.address || tree.address;
+app.put("/edit", function(request, response) {
+  var treeInput = request.body;
+  var treeToEdit = treeModel.findById(treeInput._id, function(error, tree) {
+    tree.name = treeInput.name || tree.name;
+    tree.age = treeInput.age || tree.name;
+    tree.address = treeInput.address || tree.address;
 
-  //   tree.save(function(error) {
-  //     if (error) response.send(error);
-  //   });
-  // });
+    tree.save(function(error) {
+      if (error) response.send(error);
+    });
+  });
 });
 
 app.delete("/delete/:id", function(request, response) {

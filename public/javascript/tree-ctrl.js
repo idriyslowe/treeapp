@@ -23,6 +23,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   var app = this;
   var homeUrl = 'http://localhost:4050';
   var indexUrl = 'http://localhost:4050/index';
+  var editUrl = 'http://localhost:4050/edit';
   $scope.treesFromMongo = [];
 
 // if triggered, will change this tree's form elements to show
@@ -34,12 +35,12 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     document.getElementById('begin-edit' + tree._id).style.display = 'none';
     document.getElementById('submit-edit' + tree._id).style.display = 'block';
     document.getElementById('submit-edit' + tree._id).style.display = 'inline';
-    // }
   };
 
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
-    console.log('i need to work on how to edit the db');
+    $http.put(editUrl, {_id: tree._id, name: eName, age: eAge, address: eAddress});
     $scope.turnOffEditElements(tree);
+    $scope.show();
   };
 
   $scope.turnOffEditElements = function(tree) {
@@ -49,16 +50,8 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     document.getElementById('edit-name' + tree._id).style.display = 'none';
     document.getElementById('edit-age' + tree._id).style.display = 'none';
     document.getElementById('edit-address' + tree._id).style.display = 'none';
-
-
-    // var thisTree = $scope.trees.find(x => x._id === tree._id)
-
-    // thisTree.name = eName || thisTree.name;
-    // thisTree.age = eAge || thisTree.age;
-    // thisTree.address = eAddress || thisTree.address; 
   };
 
-// only works after reload!?
   $scope.show = function() {
     $http.get(indexUrl).success(function(trees) {
       for ( i = 0; i < trees.length; i++ ) {
@@ -75,7 +68,6 @@ app.controller('treeCtrl', function($scope, $http, $route) {
 
     if (confirmed === true) {
       console.log("deleting " + tree.name);
-
       // delete this tree from array and using cookies
     }   
   };
