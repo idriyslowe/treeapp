@@ -50,8 +50,6 @@ app.put("/edit", function(request, response) {
       if (error) response.send(error);
     });
   });
-  // 303 turns off default 'put' redirect 
-  response.redirect(303, '/');
 });
 
 app.delete("/delete/:id", function(request, response) {

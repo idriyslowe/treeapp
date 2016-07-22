@@ -39,16 +39,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
 
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
     $http.put(editUrl, {_id: tree._id, name: eName, age: eAge, address: eAddress});
-    $scope.turnOffEditElements(tree);
-  };
-
-  $scope.turnOffEditElements = function(tree) {
-    document.getElementById('begin-edit' + tree._id).style.display = 'block';
-    document.getElementById('begin-edit' + tree._id).style.display = 'inline';
-    document.getElementById('submit-edit' + tree._id).style.display = 'none';
-    document.getElementById('edit-name' + tree._id).style.display = 'none';
-    document.getElementById('edit-age' + tree._id).style.display = 'none';
-    document.getElementById('edit-address' + tree._id).style.display = 'none';
+    location.reload();
   };
 
   $scope.show = function() {
@@ -59,6 +50,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     }).error(function(error) {
       console.log(error);
     });
+    console.log("show is loading");
   };
 
   $scope.delete = function(tree) {
