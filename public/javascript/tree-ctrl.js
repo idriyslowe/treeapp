@@ -40,7 +40,6 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
     $http.put(editUrl, {_id: tree._id, name: eName, age: eAge, address: eAddress});
     $scope.turnOffEditElements(tree);
-    $scope.show();
   };
 
   $scope.turnOffEditElements = function(tree) {
@@ -58,7 +57,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
         $scope.treesFromMongo.push(trees[i]); 
       }
     }).error(function(error) {
-      console.log('error');
+      console.log(error);
     });
   };
 
