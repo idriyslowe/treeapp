@@ -26,7 +26,8 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   $scope.treesFromMongo = [];
 
 // if triggered, will change this tree's form elements to show
-  $scope.edit = function(tree) {
+// refactor this with css rules
+  $scope.turnOnEditElements = function(tree) {
     document.getElementById('edit-name' + tree._id).style.display = 'block';
     document.getElementById('edit-age' + tree._id).style.display = 'block';
     document.getElementById('edit-address' + tree._id).style.display = 'block';
@@ -38,12 +39,18 @@ app.controller('treeCtrl', function($scope, $http, $route) {
 
   $scope.submitEdit = function(tree, eName, eAge, eAddress) {
     console.log('i need to work on how to edit the db');
+    $scope.turnOffEditElements(tree);
+  };
+
+  $scope.turnOffEditElements = function(tree) {
     document.getElementById('begin-edit' + tree._id).style.display = 'block';
     document.getElementById('begin-edit' + tree._id).style.display = 'inline';
     document.getElementById('submit-edit' + tree._id).style.display = 'none';
     document.getElementById('edit-name' + tree._id).style.display = 'none';
     document.getElementById('edit-age' + tree._id).style.display = 'none';
     document.getElementById('edit-address' + tree._id).style.display = 'none';
+
+
     // var thisTree = $scope.trees.find(x => x._id === tree._id)
 
     // thisTree.name = eName || thisTree.name;

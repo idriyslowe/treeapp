@@ -28,6 +28,8 @@ app.get("/index", function(request, response) {
 });
 // gotta send the html and data at the same time at load time.
 // to keep it a true spa
+// maybe onload="show()"
+// and call show() when any edits happen
 app.get("/", function(request, response) {
   response.sendFile(path.join( __dirname + "/views/index.html"));
 });

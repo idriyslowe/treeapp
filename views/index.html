@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html ng-app="treeApp">
+<html ng-app="treeApp" ng-controller="treeCtrl">
     <head>
         <meta charset='utf-8'>
         <title>Tree App</title>
         <link rel='stylesheet' href='/css/main.css' type='text/css'>
         <script src='/javascript/angular.min.js'></script>
-        <!-- <script onload="show()"></script> -->
+        <script ng-init="show()"></script>
     </head>
     <!-- fix the ng-hide and show all drama -->
-    <body ng-controller="treeCtrl">
+    <body>
         <h1>ALL DOCUMENTED TREES</h1>
             <div ng-repeat="tree in treesFromMongo">
                 <p>ID: {{tree._id}}</p>
@@ -19,7 +19,7 @@
                 <p>Address: {{tree.address}}</p>
                 <input  id="edit-address{{tree._id}}" type="text" ng-model="eAddress" placeholder="Edit Address" style="display: none;">
                 <br>
-                <button type="submit" id="begin-edit{{tree._id}}" ng-click="edit(tree)">Edit</button>
+                <button type="submit" id="begin-edit{{tree._id}}" ng-click="turnOnEditElements(tree)">Edit</button>
                 <button type="submit" id="submit-edit{{tree._id}}" ng-click="submitEdit(tree, eName, eAge, eAddress)" style="display: none;">Submit</button>
                 <button type="submit" id="delete-button{{tree._id}}" ng-click="delete(tree)">Delete</button>               
                 <hr>
