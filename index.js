@@ -19,16 +19,16 @@ var treeModel = mongoose.model('tree', {
   address: String
 });
 
+app.get("/", function(request, response) {
+  response.sendFile(path.join( __dirname + "/views/index.html"));
+});
+
 app.get("/index", function(request, response) {
     treeModel.find(function(error, trees) {
     if (error) return console.error(error);
     response.send(trees);
     return trees;
   });
-});
-
-app.get("/", function(request, response) {
-  response.sendFile(path.join( __dirname + "/views/index.html"));
 });
 
 app.post("/new", function(request, response) {
@@ -52,8 +52,13 @@ app.put("/edit", function(request, response) {
   });
 });
 
-app.delete("/delete/:id", function(request, response) {
-  response.end("You wanna destroy a tree?!");  
+app.delete("/delete", function(request, response) {
+  var inputTreeId = request.body;
+  var treeToDelete = treeModel.findById(inputTreeId._id, function(error, tree) {
+    treeModel.remove(tree, function(error) {
+      if (error) response.send(error);
+    })
+  });
 });
 
 app.get("*", function(request, response) {

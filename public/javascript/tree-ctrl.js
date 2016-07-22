@@ -24,6 +24,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
   var homeUrl = 'http://localhost:4050';
   var indexUrl = 'http://localhost:4050/index';
   var editUrl = 'http://localhost:4050/edit';
+  var deleteUrl = 'http://localhost:4050/delete';
   $scope.treesFromMongo = [];
 
 // if triggered, will change this tree's form elements to show
@@ -50,16 +51,22 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     }).error(function(error) {
       console.log(error);
     });
-    console.log("show is loading");
   };
 
   $scope.delete = function(tree) {
-    var thisTree = $scope.trees.find(x => x.id === tree.id)
     var confirmed = confirm("Are you sure you want to delete this tree?");
+    // angular doesn't allow body on $http.delete method. hence this solution
+    var config = {
+      method: "DELETE",
+      url: deleteUrl,
+      data: tree,
+      headers: {"Content-Type": "application/json;charset=utf-8"}
+    };
 
     if (confirmed === true) {
+      $http(config);
+      location.reload();
       console.log("deleting " + tree.name);
-      // delete this tree from array and using cookies
     }   
   };
 
@@ -70,6 +77,7 @@ app.controller('treeCtrl', function($scope, $http, $route) {
     $scope.nName = null;
     $scope.nAge = null;
     $scope.nAddress = null;
+    location.reload();
   }; 
 
   window.$scope = $scope;
