@@ -10,12 +10,12 @@
     <body>
         <h1>ALL DOCUMENTED TREES</h1>
             <div ng-repeat="tree in treesFromMongo">
-                <p>ID: {{tree._id}}</p>
-                <p>Name: {{tree.name}}</p>
+                <p><b>ID:</b> {{tree._id}}</p>
+                <p><b>Name:</b> {{tree.name}}</p>
                 <input id="edit-name{{tree._id}}" type="text" ng-model="eName" placeholder="Edit Name" style="display: none;">
-                <p>Age: {{tree.age}}</p>
+                <p><b>Age:</b> {{tree.age}}</p>
                 <input id="edit-age{{tree._id}}" type="text" ng-model="eAge" placeholder="Edit Age" style="display: none;">
-                <p>Address: {{tree.address}}</p>
+                <p><b>Address:</b> {{tree.address}}</p>
                 <input  id="edit-address{{tree._id}}" type="text" ng-model="eAddress" placeholder="Edit Address" style="display: none;">
                 <br>
                 <button type="submit" id="begin-edit{{tree._id}}" ng-click="turnOnEditElements(tree)">Edit</button>
@@ -24,11 +24,11 @@
                 <hr>
             </div>
         <div>
+            <h1>CREATE NEW TREE</h1>
             <input type="text" ng-model="nName" placeholder="Name">
             <input type="text" ng-model="nAge" placeholder="Age">
             <input type="text" ng-model="nAddress" placeholder="Address">
             <button ng-click="newTree(nName, nAge, nAddress)">Submit New Tree</button>
-            <button type="submit" id="edit-button{{tree.id}}" ng-click="show()">Show</button>  
         </div>
         
         
